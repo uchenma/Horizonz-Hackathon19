@@ -6,6 +6,7 @@ const path = require("path");
 const logger = require("morgan");
 const cors = require("cors");
 const app = express();
+
 const mongoose = require('mongoose')
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
@@ -15,11 +16,10 @@ const auth = require('./routes/auth');
 const crypto = require("crypto");
 const MongoStore = require('connect-mongo')(session);
 
-const REQUIRED_ENVS = ['MONGODB_URI']
+const REQUIRED_ENVS = ["MONGODB_URI"];
 
 REQUIRED_ENVS.forEach(function(el) {
-  if (!process.env[el])
-    throw new Error("Missing required env var " + el);
+  if (!process.env[el]) throw new Error("Missing required env var " + el);
 });
 mongoose.connect(process.env.MONGODB_URI);
 mongoose.connection.once("open", () => console.log(`Connected to MongoDB!`));
