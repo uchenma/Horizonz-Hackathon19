@@ -11,3 +11,39 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.button {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 5px;
+}
+
+.buttonBlue {
+  background-color: #0074D9
+}
+
+.buttonGreen  {
+  background-color: #2ECC40
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.coverPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.cover{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
