@@ -5,13 +5,12 @@ const path = require("path");
 const logger = require("morgan");
 const cors = require("cors");
 const app = express();
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-const REQUIRED_ENVS = ['MONGODB_URI']
+const REQUIRED_ENVS = ["MONGODB_URI"];
 
 REQUIRED_ENVS.forEach(function(el) {
-  if (!process.env[el])
-    throw new Error("Missing required env var " + el);
+  if (!process.env[el]) throw new Error("Missing required env var " + el);
 });
 mongoose.connect(process.env.MONGODB_URI);
 mongoose.connection.once("open", () => console.log(`Connected to MongoDB!`));
