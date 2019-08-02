@@ -1,16 +1,20 @@
 import React from "react";
-
-
 import Profile from "../components/Profile"
-// import Timeline from "../components/Timeline"
+import Timeline from "../components/Timeline"
 // import Messages from "../components/Messages"
 
 function Dashboard(){
 
     return(
-        <div>
+        <div className="dashboard">
+            <div className="banner">
+                OUR NAME
+            </div>
+            <div className="dashboardBody">
             <Profile />
-            {/* <Timeline />*/}
+            <Timeline />
+            </div>
+           
         </div>
       )
 }

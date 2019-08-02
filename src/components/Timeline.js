@@ -17,7 +17,7 @@ function Timeline() {
       .catch(err => console.log(err));
   }, []);
   return (
-    <div>
+    <div className="timeline">
       <h2> All Goals</h2>
     </div>
   );
