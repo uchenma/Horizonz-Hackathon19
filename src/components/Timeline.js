@@ -6,6 +6,7 @@ function Timeline() {
   const [newRec, setNewRec] = useState(""); 
   const [recs, setRecs] = useState([]); 
 
+  
   useEffect(() => {
     fetch("http://localhost:4000/timeline", {
       method: "GET",

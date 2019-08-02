@@ -12,12 +12,13 @@ const app = express();
 const mongoose = require("mongoose");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-const { User } = require("./models");
+const { User, Messages } = require("./models");
 const routes = require("./routes/index");
 const auth = require("./routes/auth");
 const crypto = require("crypto");
 const MongoStore = require("connect-mongo")(session);
 const socket = require('socket.io'); 
+
 
 
 const server = require('http').Server(app);
@@ -27,6 +28,17 @@ const io = socket(server);
 io.on('connection', (socket)=> {
   console.log(socket.id); 
   socket.on('SEND_MESSAGE', function(data){
+    // let newMessage = new Messages({
+    //   to: data.to, 
+    //   from: data.from, 
+    //   content: data.content
+    // }); 
+    // newMessage.save(function(err, result){
+    //   if (err) {console.log(err)}
+    //   if (!err) {
+    //     console.log('successfully saved!'); 
+    //   }
+    // })
     io.emit('RECEIVE_MESSAGE', data);
   }); 
 });
