@@ -28,17 +28,17 @@ const io = socket(server);
 io.on('connection', (socket)=> {
   console.log(socket.id); 
   socket.on('SEND_MESSAGE', function(data){
-    // let newMessage = new Messages({
-    //   to: data.to, 
-    //   from: data.from, 
-    //   content: data.content
-    // }); 
-    // newMessage.save(function(err, result){
-    //   if (err) {console.log(err)}
-    //   if (!err) {
-    //     console.log('successfully saved!'); 
-    //   }
-    // })
+    let newMessage = new Messages({
+      to: data.to, 
+      from: data.from, 
+      content: data.content
+    }); 
+    newMessage.save(function(err, result){
+      if (err) {console.log(err)}
+      if (!err) {
+        console.log('successfully saved!'); 
+      }
+    })
     io.emit('RECEIVE_MESSAGE', data);
   }); 
 });
