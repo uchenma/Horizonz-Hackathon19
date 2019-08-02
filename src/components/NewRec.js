@@ -45,7 +45,7 @@ function NewRec(goalID) {
         </div>
 
         <input
-          className="btn btn-success col-sm-2"
+          className="ghost-button col-sm-2"
           type="submit"
           value="Add"
           onClick={e => addNewRec(e, goalID)}

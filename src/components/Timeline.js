@@ -62,9 +62,9 @@ function Timeline() {
         <div>
           <h2 style={{ textAlign: "center" }}> All Goals!</h2>
           <div className="form-group row offset-sm-1">
-            <p className="col-sm-3 col-form-label">Set a new Goal! </p>
+            <h5 style={{alignItems:"center"}}className="col-sm-3">Set a new Goal! </h5>
             <div className="col-sm-7">
-              <textarea
+              <input
                 className="form-control"
                 name="newGoal"
                 value={newGoal}
@@ -74,7 +74,7 @@ function Timeline() {
               />
             </div>
             <input
-              className="btn btn-success col-sm-1"
+              className="ghost-button col-sm-1"
               type="submit"
               value="Add"
               onClick={e => addNewGoal(e)}
@@ -87,21 +87,21 @@ function Timeline() {
                   <div className="user">
                     {/* Div with user info */}
                     <img src={goal.user.profilePic} alt="profile pic" />
-                    <p>anonymousDolphin</p>
-                    <p>Age: {goal.user.age}</p>
-                    <p>Bio: {goal.user.bio}</p>
+                    <h5>anonymousDolphin</h5>
+                    <h5>Age: {goal.user.age}</h5>
+                    <h5>Bio: {goal.user.bio}</h5>
                   </div>
                   <div className="allGoals">
-                    <h3 className="goal">{goal.content}</h3>
-                    <h4>Recommendations</h4>
+                    <h2 className="goal">{goal.content}</h2>
+                    <h4><strong>Recommendations:</strong></h4>
                     {goal.rec.map(rec => (
                       <div>
                         <div className="form-group row">
-                        <p className="col-sm-9 col-form-label">
+                        <h5 className="col-sm-9">
                           anonymousGoose recommended: {rec.content}
-                        </p>
+                        </h5>
                         <button
-                          className="btn btn-info col-sm-2"
+                          className="ghost-button col-sm-2"
                           onClick={e => {
                             e.preventDefault();
                             setOpenMessage(true);
