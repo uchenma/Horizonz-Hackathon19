@@ -68,7 +68,7 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-// Initialize Passport
+// Initialize Passport[]
 passport.use(
   new LocalStrategy(function(email, password, done) {
     const hashedPassword = hashPassword(password);

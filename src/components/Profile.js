@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 
 function Profile() {
-  const [profile, setProfile] = useState([]);
+  const [profile, setProfile] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:4000/user", {
+    fetch("http://localhost:4000/me", {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
-      }
+      }, 
+      credentials: "include"
     })
       .then(response => response.json())
       .then(responseJson => {
@@ -22,6 +23,8 @@ function Profile() {
 
   return (
     <div className="profile">
+      {profile && 
+      <div> 
       <h1>profile page woo</h1>
       <img src={profile.profilePic} />
       <h3>
@@ -31,9 +34,10 @@ function Profile() {
       <p>Gender: {profile.gender}</p>
       <p>Bio: {profile.bio}</p>
       <p>Email: {profile.email}</p>
+      </div>
+    }
     </div>
   );
 }
-
 
 export default Profile;
