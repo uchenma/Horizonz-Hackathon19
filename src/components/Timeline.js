@@ -72,82 +72,78 @@ function Timeline() {
       .catch(err => console.log(err));
   }
 
+  console.log(userId, recId)
   if (openMessage) {
     return <Messages userId={userId} recId={recId} />;
   } else {
     return (
       <div className="timeline">
         <div>
-          <h2 style={{ textAlign: "center" }}> All Goals</h2>
+          <h2 style={{ textAlign: "center" }}> All Goals!</h2>
           <div className="form-group row offset-sm-1">
-            <label className="col-sm-2 col-form-label">Set a new Goal! </label>
-            <div className="col-sm-8">
-              <textarea
+            <h5 style={{alignItems:"center"}}className="col-sm-3">Set a new Goal! </h5>
+            <div className="col-sm-7">
+              <input
                 className="form-control"
                 name="newGoal"
                 value={newGoal}
                 placeholder="Add my own goal"
                 onChange={e => setNewGoal(e.target.value)}
+                //   onKeyPress={e => addNewGoal(e)}
               />
             </div>
             <input
-              className="btn btn-success col-sm-1"
+              className="ghost-button col-sm-1"
               type="submit"
               value="Add"
               onClick={e => {
-                addNewGoal(e);
-                setNewGoal("");
-                getGoals();
+                addNewGoal(e)
+                setNewGoal('')
+                getGoals()
               }}
             />
           </div>
-          <ul>
+          <div>
             {goals.map(goal => {
               return (
-                <div
-                  className="goalContainer"
-                  style={{ display: "flex", flexDirection: "row" }}
-                >
-                  <div
-                    className="user"
-                    style={{ flex: 1, flexDirection: "column" }}
-                  >
+                <div className="goalContainer">
+                  <div className="user">
                     {/* Div with user info */}
                     <img src={goal.user.profilePic} alt="profile pic" />
-                    <p>Goal by user: {goal.user.firstName}</p>
+                    <h5>anonymousDolphin</h5>
+                    <h5>Age: {goal.user.age}</h5>
+                    <h5>Bio: {goal.user.bio}</h5>
                   </div>
-                  <div style={{ flex: 2, flexDirection: "column" }}>
-                    {/* Div with goal info */}
-                    <h3>{goal.content}</h3>
-                    {console.log("goal", goal)}
-                    {console.log("rec array", goal.rec)}
-                    <h4>Recommendations</h4>
+                  <div className="allGoals">
+                    <h2 className="goal">{goal.content}</h2>
+                    <h4><strong>Recommendations:</strong></h4>
                     {goal.rec.map(rec => (
                       <div>
-                        <p>
-                          {rec.user._id} recommended: {rec.content}
-                        </p>
+                        <div className="form-group row">
+                        <h5 className="col-sm-9">
+                          anonymousGoose recommended: {rec.content}
+                        </h5>
                         <button
+                          className="ghost-button col-sm-2"
                           onClick={e => {
                             e.preventDefault();
-                            // return <Messages userId={goal.user._id} recId={rec.user}/>;
-                            console.log("i clicked");
                             setOpenMessage(true);
                             setUserId(goal.user._id);
                             setRecId(rec.user);
                           }}
                         >
-                          {" "}
-                          Message them!
+                          Resoond!
                         </button>
+                        </div>
+                        
                       </div>
                     ))}
-                    <NewRec goalID={goal._id} getGoals={getGoals} />
+                    <NewRec goalID={goal._id} getGoals={getGoals}  />
                   </div>
                 </div>
               );
             })}
-          </ul>
+          </div>
         </div>
       </div>
     );

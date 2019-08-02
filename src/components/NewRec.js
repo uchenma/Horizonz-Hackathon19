@@ -36,7 +36,7 @@ function NewRec(props) {
   return (
     <div>
       <div class="form-group row">
-        <div className="col-sm-8">
+        <div className="col-sm-9">
           <textarea
             className="form-control"
             name="newRec"
@@ -49,7 +49,7 @@ function NewRec(props) {
         </div>
 
         <input
-          className="btn btn-success col-sm-2"
+          className="ghost-button col-sm-2"
           type="submit"
           value="Add"
           onClick={e => addNewRec(e, goalID)}

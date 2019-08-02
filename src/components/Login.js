@@ -39,9 +39,17 @@ function Login() {
     return <Redirect to="/dashboard" />;
   } else {
     return (
-      <div>
+      <div
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column"
+        }}
+      >
         <h3 style={{ textAlign: "center" }}>Login</h3>
-        <form onSubmit={e => login(e)}>
+        <form className="loginForm" onSubmit={e => login(e)}>
           <div className="form-group row">
             <label className="col-sm-2 col-form-label">Email </label>
             <div className="col-sm-10">
@@ -68,8 +76,11 @@ function Login() {
               />
             </div>
           </div>
-
-          <input className="btn btn-success" type="submit" value="Login" />
+          <div style={{display:"flex", justifyContent:"space-between"}}>
+          <input className="ghost-button" style={{ width: "20%" }} type="submit" value="Login" />
+            <Link to="/signup" style={{textAlign:"right"}}>SignUp Here!</Link>
+          </div>
+            
         </form>
       </div>
     );
