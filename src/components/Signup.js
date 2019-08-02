@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Signup(){
+function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -20,8 +20,7 @@ function Signup(){
         email: email,
         password: password
       })
-    })
-    .then(response => console.log(" post /signup response", response));
+    }).then(response => console.log(" post /signup response", response));
   };
 
   return (
@@ -116,6 +115,6 @@ function Signup(){
       </form>
     </div>
   );
-};
+}
 
 export default Signup;
