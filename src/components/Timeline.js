@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import NewRec from "./NewRec";
 
 function Timeline() {
   const [goals, setGoals] = useState([]);
@@ -109,30 +110,13 @@ function Timeline() {
                   {/* Div with user info */}
                   <img src={goal.user.profilePic} />
                   <p>Goal by user: {goal.user.firstName}</p>
+
                 </div>
                 <div style={{ flex: 2, flexDirection: "column" }}>
                   {/* Div with goal info */}
                   <h3>{goal.content}</h3>
                   <p>{goal.recs}</p>
-                  <div class="form-group row">
-                    <div className="col-sm-8">
-                      <textarea
-                        className="form-control"
-                        name="newRec"
-                        value={newRec}
-                        placeholder="Make a recommendation!"
-                        onChange={e => {
-                          setNewRec(e.target.value);
-                        }}
-                      />
-                    </div>
-                    <input
-                      className="btn btn-success col-sm-2"
-                      type="submit"
-                      value="Add"
-                      onClick={e => addNewRec(e, goal._id)}
-                    />
-                  </div>
+                  <NewRec goalID={goal._id} />
                 </div>
               </div>
             );

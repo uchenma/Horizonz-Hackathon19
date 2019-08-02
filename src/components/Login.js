@@ -40,7 +40,7 @@ function Login() {
       <div>
         <h3 style={{ textAlign: "center" }}>Login</h3>
         <form onSubmit={e => login(e)}>
-          <div class="form-group row">
+          <div className="form-group row">
             <label className="col-sm-2 col-form-label">Email </label>
             <div className="col-sm-10">
               <input
