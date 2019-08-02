@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { BrowserRouter, Route, Link, Redirect } from "react-router-dom";
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -9,112 +10,145 @@ function Signup() {
   const [profilePic, setProfilePic] = useState("");
   const [gender, setGender] = useState("");
   const [bio, setBio] = useState("");
+  const [isSignup, setIsSignup] = useState(false);
 
-  const signup = () => {
+  function handleGenderSelect(e) {
+    e.preventDefault();
+    setGender(e.target.value);
+  }
+
+  const signup = e => {
+    e.preventDefault();
+
     fetch("http://localhost:4000/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json" //are these headers right
       },
       body: JSON.stringify({
-        email: email,
-        password: password
+        email,
+        password,
+        firstName,
+        lastName,
+        age,
+        profilePic,
+        gender,
+        bio
       })
-    }).then(response => console.log(" post /signup response", response));
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log(" post /signup response", responseJson);
+        if (responseJson.success) {
+          setIsSignup(true);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
-  return (
-    <div>
-      <form onSubmit={signup}>
-        <input
-          type="text"
-          name="email"
-          value={email}
-          placeholder="email"
-          onChangeText={text => setEmail(text)}
-        />
-        <input
-          type="password"
-          name="password"
-          value={password}
-          placeholder="password"
-          onChangeText={text => setPassword(text)}
-        />
-        <input
-          type="text"
-          name="firstName"
-          value={firstName}
-          placeholder="Enter your first name"
-          onChangeText={text => setFirstName(text)}
-        />
-        <input
-          type="text"
-          name="lastName"
-          value={lastName}
-          placeholder="Enter your last name"
-          onChangeText={text => setLastName(text)}
-        />
-        <input
-          type="text"
-          name="age"
-          value={age}
-          placeholder="Enter your age"
-          onChangeText={text => setAge(text)}
-        />
-        <input
-          type="text"
-          name="profilePic"
-          value={profilePic}
-          placeholder="Enter an image URL to display on your profile"
-          onChangeText={text => setProfilePic(text)}
-        />
-        <textarea
-          name="bio"
-          value={bio}
-          placeholder="Type a short bio"
-          onChangeText={text => setBio(text)}
-        />
-        {/* <div className="form-check">
-          <label>
-            <input
-              type="radio"
-              name="maleGender"
-              value="Male"
-              checked={false}
-              className="form-check-input"
-            />
-            Male
-          </label>
-        </div>
+  if (isSignup) {
+    return <Redirect to="/login" />;
+  } else {
+    return (
+      <div>
+        <form onSubmit={e => signup(e)}>
+          <input
+            type="text"
+            name="email"
+            value={email}
+            placeholder="email"
+            onChange={e => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            name="password"
+            value={password}
+            placeholder="password"
+            onChange={e => setPassword(e.target.value)}
+          />
+          <input
+            type="text"
+            name="firstName"
+            value={firstName}
+            placeholder="Enter your first name"
+            onChange={e => setFirstName(e.target.value)}
+          />
+          <input
+            type="text"
+            name="lastName"
+            value={lastName}
+            placeholder="Enter your last name"
+            onChange={e => setLastName(e.target.value)}
+          />
+          <input
+            type="text"
+            name="age"
+            value={age}
+            placeholder="Enter your age"
+            onChange={e => setAge(e.target.value)}
+          />
+          <input
+            type="text"
+            name="profilePic"
+            value={profilePic}
+            placeholder="Enter an image URL to display on your profile"
+            onChange={e => setProfilePic(e.target.value)}
+          />
+          <textarea
+            name="bio"
+            value={bio}
+            placeholder="Type a short bio"
+            onChange={e => setBio(e.target.value)}
+          />
+          <div>
+            <div className="form-check">
+              <label>
+                <input
+                  type="radio"
+                  name="gender"
+                  value="Male"
+                  checked={gender === "Male"}
+                  className="form-check-input"
+                  onChange={e => handleGenderSelect(e)}
+                />
+                Male
+              </label>
+            </div>
+            <div className="form-check">
+              <label>
+                <input
+                  type="radio"
+                  name="gender"
+                  value="Female"
+                  checked={gender === "Female"}
+                  className="form-check-input"
+                  onChange={e => handleGenderSelect(e)}
+                />
+                Female
+              </label>
+            </div>
+            <div className="form-check">
+              <label>
+                <input
+                  type="radio"
+                  name="gender"
+                  value="Other"
+                  checked={gender === "Other"}
+                  className="form-check-input"
+                  onChange={e => handleGenderSelect(e)}
+                />
+                Other
+              </label>
+            </div>
+          </div>
+          <input type="submit" value="Sign up!" />
+        </form>
+      </div>
+    );
+  }
 
-        <div className="form-check">
-          <label>
-            <input
-              type="radio"
-              name="femaleGender"
-              value="Female"
-              checked={false}
-              className="form-check-input"
-            />
-            Female
-          </label>
-        </div>
-        <div className="form-check">
-          <label>
-            <input
-              type="radio"
-              name="otherGender"
-              value="Other"
-              checked={false}
-              className="form-check-input"
-            />
-            Other
-          </label>
-        </div> */}
-        <input type="submit" value="Sign up!" />
-      </form>
-    </div>
-  );
 }
 
 export default Signup;

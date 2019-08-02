@@ -1,12 +1,18 @@
 import React from "react";
-import { Timeline } from "../components/Timeline";
 
-function Dashboard() {
-  return (
-    <div>
-      <h1> This will be a dashboard someday! </h1>
-    </div>
-  );
+
+import Profile from "../components/Profile"
+// import Timeline from "../components/Timeline"
+// import Messages from "../components/Messages"
+
+function Dashboard(){
+
+    return(
+        <div>
+            <Profile />
+            {/* <Timeline />*/}
+        </div>
+      )
 }
 
 export default Dashboard;
