@@ -114,6 +114,58 @@ router.post('/:userId/score', function(err, res){
             res.json({success: true, error: ''})
         }
     })
-})
+}); 
 
+router.get('/:userId', function(err, res){
+
+    const userId = req.params.userId; 
+       if (userId !== req.user._id || err) {
+          res.json({success: false, error: "You can't view the profile of a user that's not you"});
+       }
+    
+       else {
+           User.findOne({_id: userId }, function(error, result){
+               if (error) { res.send(error) }
+               if (!error) {
+                   res.send(result); 
+               }
+           })
+       }
+    }); 
+    
+    
+    router.get('/timeline', function(err, res){
+        if (err) {res.send(err)}
+        Goal.find(function(error, result){
+            if (error) { console.log(error)}
+            else {
+                res.send(result); 
+            }
+        })
+    })
+    
+    
+    router.get('/:userId/messages', function(err, res){
+        let loggedUserId = req.user._id; 
+        let userId = req.params.userId; 
+        if (err) { res.send({success: false, erro: err})}
+        Message.find({from: loggedUserId, to: userId }, function(errOne, resultOne){
+            if (errOne) { console.log(error) }
+            if (!error) {
+                Message.find({from: userId, to: loggedUserId }, function(errTwo, resultTwo){
+    
+                    if (errTwo) {
+                        console.log(errTwo); 
+                    }
+    
+                    if (!errTwo) {
+                        let result = resultOne; 
+                        result.push(resultTwo); 
+                        result.flat(); 
+                        res.send(result); 
+                    }
+                })
+            }
+        })
+    })
 module.exports = router; 
