@@ -4,7 +4,6 @@ import NewRec from "./NewRec";
 function Timeline() {
   const [goals, setGoals] = useState([]);
   const [newGoal, setNewGoal] = useState("");
-  const [newRec, setNewRec] = useState("");
   const [recs, setRecs] = useState([]);
 
   useEffect(() => {
@@ -44,13 +43,13 @@ function Timeline() {
       .then(responseJson => {
         console.log(responseJson);
         if (responseJson.success) {
-          setGoals(goals.push(responseJson.data));
           alert("Goal added!");
           setNewGoal("");
         }
       })
       .catch(err => console.log(err));
   }
+
 
   return (
     <div className="timeline">
