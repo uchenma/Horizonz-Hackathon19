@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 function Timeline() {
   const [goals, setGoals] = useState([]);
+  const [newRec, setNewRec] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:4000/timeline", {
@@ -12,13 +13,43 @@ function Timeline() {
     })
       .then(response => response.json())
       .then(responseJson => {
-        setGoals(responseJson.goals);
+        if (responseJson.success) {
+          setGoals(responseJson.goals);
+        }
       })
       .catch(err => console.log(err));
   }, []);
+
   return (
     <div>
       <h2> All Goals</h2>
+      <ul>
+        {goals.map(goal => {
+          return (
+            <div
+              className="goalContainer"
+              style={{ display: "flex", flexDirection: "row" }}
+            >
+              <div className="user" style={{ flexDirection: "column" }}>
+                {/* Div with user info */}
+                {goal.user.profilePic}
+                <h4>Goal by user: {goals.user._id}</h4>
+              </div>
+              <div style={{ flexDirection: "column" }}>
+                {/* Div with goal info */}
+                <p>{goal.content}</p>
+                <p>{goal.recs}</p>
+                <textarea
+                  name="newRec"
+                  value={newRec}
+                  placeholder="Make a recommendation!"
+                  onChange={e => setNewRec(e.target.value)}
+                />
+              </div>
+            </div>
+          );
+        })}
+      </ul>
     </div>
   );
 }
