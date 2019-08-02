@@ -3,8 +3,6 @@ import Profile from "../components/Profile";
 import Timeline from "../components/Timeline";
 import Messages from "../components/Messages";
 
-
-
 function Dashboard() {
   return (
     <div className="dashboard">

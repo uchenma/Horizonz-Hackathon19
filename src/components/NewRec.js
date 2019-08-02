@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 
-function NewRec(goalID) {
+function NewRec(props) {
+  const goalID = props.goalID;
+  const getGoals = props.getGoals;
   const [newRec, setNewRec] = useState("");
 
   function addNewRec(e, goalID) {
     e.preventDefault();
-    const link = "http://localhost:4000/" + goalID.goalID + "/newrec";
+    const link = "http://localhost:4000/" + goalID + "/newrec";
     fetch(link, {
       method: "POST",
       headers: {
@@ -24,11 +26,13 @@ function NewRec(goalID) {
         console.log(responseJson);
         if (responseJson.success) {
           alert("Rec added!");
-          setNewRec("")
+          getGoals();
+          setNewRec("");
         }
       })
       .catch(err => console.log(err));
   }
+
   return (
     <div>
       <div class="form-group row">
