@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 
-function Message(props) {
+function Message({userId, recId}) {
+
     const [message, setMessage] = useState(""); 
     const [messages, setMessages] = useState([]);
     const [from, setFrom] = useState(""); 
@@ -11,8 +12,8 @@ function Message(props) {
     function sendMessage(e) {
         e.preventDefault(); 
         socket.emit('SEND_MESSAGE', {
-            from: 'Alex', 
-            to: 'Zack', 
+            from: userId, 
+            to: recId, 
             content: message
         }); 
         setMessage(""); 
@@ -67,7 +68,7 @@ function Message(props) {
                                 <div className="footer">
                                     <input type="text" placeholder="Message" className="form-control" value={message} onChange={e => setMessage(e.target.value)}/>
                                     <br/>
-                                    <input type = "submit" className="btn btn-primary form-control" value = 'Send' onClick={e => sendMessage(e)}/>
+                                    <input type = "submit" className="btn btn-primary form-control" value = 'Send' onClick={e => sendMessage(e, userId, recId)}/>
                                 </div>
                             </div>
                         </div>
