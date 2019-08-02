@@ -59,6 +59,7 @@ function Timeline() {
 if(openMessage){
  return <Messages userId={userId} recId={recId}/> 
 } else{
+
   return (
     <div className="timeline">
       <div>
