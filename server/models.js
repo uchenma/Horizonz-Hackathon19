@@ -28,7 +28,7 @@ var userSchema = new mongoose.Schema({
   },
   gender: {
     type: String,
-    required: false
+    required: true
   },
   bio: {
     type: String,
@@ -36,7 +36,7 @@ var userSchema = new mongoose.Schema({
   },
   goals: [
     {
-      type: mongoose.Schema.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Goal"
     }
   ]
