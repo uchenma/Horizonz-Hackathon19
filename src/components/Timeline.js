@@ -52,33 +52,6 @@ function Timeline() {
       .catch(err => console.log(err));
   }
 
-  function addNewRec(e, goalId) {
-    e.preventDefault();
-    const link = "http://localhost:4000/:" + goalId + "/newrec";
-    fetch(link, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      credentials: "include",
-      redirect: "follow",
-      body: JSON.stringify({
-        content: newRec
-      })
-    })
-      .then(response => {
-        console.log(response);
-        return response.json;
-      })
-      .then(responseJson => {
-        console.log(responseJson);
-        if (responseJson.success) {
-          alert("Rec added!");
-        }
-      })
-      .catch(err => console.log(err));
-  }
-
   return (
     <div className="timeline">
       <div>
@@ -105,17 +78,40 @@ function Timeline() {
         <ul>
           {goals.map(goal => {
             return (
-              <div className="goalContainer" style={{ display: "flex", flexDirection: "row" }}>
-                <div className="user" style={{ flex: 1, flexDirection: "column" }}>
+              <div
+                className="goalContainer"
+                style={{ display: "flex", flexDirection: "row" }}
+              >
+                <div
+                  className="user"
+                  style={{ flex: 1, flexDirection: "column" }}
+                >
                   {/* Div with user info */}
-                  <img src={goal.user.profilePic} />
+                  <img src={goal.user.profilePic} alt="profile pic" />
                   <p>Goal by user: {goal.user.firstName}</p>
-
                 </div>
                 <div style={{ flex: 2, flexDirection: "column" }}>
                   {/* Div with goal info */}
                   <h3>{goal.content}</h3>
-                  <p>{goal.recs}</p>
+                  {console.log("goal", goal)}
+                  {console.log("rec array", goal.rec)}
+                  <h4>Recommendations</h4>
+                  {goal.rec.map(rec => (
+                    <div>
+                      <p>
+                        {rec.user._id} recommended: {rec.content}
+                      </p>
+                      <button
+                        onClick={e => {
+                          e.preventDefault();
+                          return <p>placeholder</p>;
+                        }}
+                      >
+                        {" "}
+                        Message them!
+                      </button>
+                    </div>
+                  ))}
                   <NewRec goalID={goal._id} />
                 </div>
               </div>
