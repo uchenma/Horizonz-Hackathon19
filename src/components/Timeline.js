@@ -23,14 +23,16 @@ function Timeline() {
 
   function addNewGoal(e) {
     e.preventDefault();
-    if (e.keyCode === 13) {
+    // setNewGoal(e.target.value);
+    // console.log(newGoal);
+    if (e.key === "Enter") {
       fetch("http://localhost:4000/newgoal", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          newGoal: e.target.value
+          newGoal
         })
       })
         .then(response => response.json())
@@ -50,9 +52,9 @@ function Timeline() {
         value={newGoal}
         placeholder="Add my own goal"
         onChange={e => setNewGoal(e.target.value)}
-        onKeyPress={e => addNewGoal(e)}
+        // onKeyPress={e => addNewGoal(e)}
       />
-      {/* <button type="submit" value="Add" onClick={e => addNewGoal(e)} /> */}
+      <input type="submit" value="Add" onClick={e => addNewGoal(e)} />
       <h2> All Goals</h2>
       <ul>
         {goals.map(goal => {
