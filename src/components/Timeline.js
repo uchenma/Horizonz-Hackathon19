@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
+import NewRec from "./NewRec";
 
 function Timeline() {
   const [goals, setGoals] = useState([]);
   const [newGoal, setNewGoal] = useState("");
-  const [newRec, setNewRec] = useState(""); 
-  const [recs, setRecs] = useState([]); 
+  const [newRec, setNewRec] = useState("");
+  const [recs, setRecs] = useState([]);
 
-  
   useEffect(() => {
     fetch("http://localhost:4000/timeline", {
       method: "GET",
@@ -39,23 +39,24 @@ function Timeline() {
       })
     })
       .then(response => {
-        return (response.json)})
+        return response.json;
+      })
       .then(responseJson => {
         console.log(responseJson);
         if (responseJson.success) {
           setGoals(goals.push(responseJson.data));
           alert("Goal added!");
-          setNewGoal("")
+          setNewGoal("");
         }
       })
       .catch(err => console.log(err));
   }
 
   function addNewRec(e, goalId) {
-    e.preventDefault(); 
-    const link = "http://localhost:4000/:" + goalId + "/newrec"; 
+    e.preventDefault();
+    const link = "http://localhost:4000/:" + goalId + "/newrec";
     fetch(link, {
-      method: "POST", 
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
@@ -65,17 +66,17 @@ function Timeline() {
         content: newRec
       })
     })
-    .then(response => {
-      console.log(response); 
-      return (response.json)})
-    .then(responseJson => {
-      console.log(responseJson);
-      if (responseJson.success) {
-        alert("Rec added!");
-      }
-    })
-    .catch(err => console.log(err));
-
+      .then(response => {
+        console.log(response);
+        return response.json;
+      })
+      .then(responseJson => {
+        console.log(responseJson);
+        if (responseJson.success) {
+          alert("Rec added!");
+        }
+      })
+      .catch(err => console.log(err));
   }
 
   return (
@@ -100,20 +101,21 @@ function Timeline() {
               >
                 <div className="user" style={{ flexDirection: "column" }}>
                   {/* Div with user info */}
-                  <img src={goal.user.profilePic}/>
+                  <img src={goal.user.profilePic} />
                   <h4>Goal by user: {goal.user.firstName}</h4>
                 </div>
                 <div style={{ flexDirection: "column" }}>
                   {/* Div with goal info */}
                   <p>{goal.content}</p>
                   <p>{goal.recs}</p>
-                  <textarea
+                  {/* <textarea
                     name="newRec"
                     value={newRec}
                     placeholder="Make a recommendation!"
                     onChange={e => {setNewRec(e.target.value);}}
                   />
-                  <input type="submit" value="Add" onClick={e => addNewRec(e, goal._id)} />
+                  <input type="submit" value="Add" onClick={e => addNewRec(e, goal._id)} /> */}
+                  <NewRec goalID={goal._id} />
                 </div>
               </div>
             );

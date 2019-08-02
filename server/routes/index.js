@@ -29,29 +29,31 @@ router.post("/newgoal", function(req, res, next) {
 
 router.post("/:goalId/newrec", function(req, res, next) {
   let goalId = req.params.goalId;
+  console.log(goalId);
   let newRec = new Rec({
     user: req.user._id,
     content: req.body.content,
-    date: new Date(),
+    createdAt: new Date(),
     goal: goalId,
     likes: 0
   });
+  console.log("newrec", newRec);
 
-
-  newRec.save(function(err, res) {
+  newRec.save(function(err, resp) {
     if (err) {
       res.json({ success: false, error: err });
     }
     if (!err) {
-      Goal.find({ _id: goalId }, function(err, goal) {
+      Goal.findOne({ _id: goalId }, function(err, goal) {
+        console.log(goal);
         if (err) {
           console.log(err);
         }
         if (!err) {
-          goal.recs.push(newRec._id);
+          goal.rec.push(newRec._id);
+          res.json({ success: true, error: "" });
         }
       });
-      res.json({ success: true, error: "" });
     }
   });
 });
@@ -137,33 +139,36 @@ router.get("/users/:userId", function(req, res) {
   }
 });
 
-router.get("/me", function(req, res){
-  const userId = req.user._id; 
+router.get("/me", function(req, res) {
+  const userId = req.user._id;
   console.log(req.user);
-  User.findOne({_id: userId}, function(error, result){
+  User.findOne({ _id: userId }, function(error, result) {
     if (error) {
-      res.json({ success: false, error: "can't find user", data: null});}
-    Goal.find({user: userId}, function (err, goals){
-      if(err) {
-        res.json({success: false, error: "can't find goals from userid"})
+      res.json({ success: false, error: "can't find user", data: null });
+    }
+    Goal.find({ user: userId }, function(err, goals) {
+      if (err) {
+        res.json({ success: false, error: "can't find goals from userid" });
       }
       if (!err) {
-        res.json({ success: true, error: "", data: result, goals});
+        res.json({ success: true, error: "", data: result, goals });
       }
-    })   
-  })
+    });
+  });
 });
 
 router.get("/timeline", function(req, res) {
-  Goal.find().populate('user').exec(function(error, result) {
-    if (error) {
-      res.json({ success: false, error: error, data: [] });
-      console.log(error);
-    } else {
-      res.json({ success: true, error: "", data: result });
-      console.log("/timeline worked");
-    }
-  });
+  Goal.find()
+    .populate("user")
+    .exec(function(error, result) {
+      if (error) {
+        res.json({ success: false, error: error, data: [] });
+        console.log(error);
+      } else {
+        res.json({ success: true, error: "", data: result });
+        console.log("/timeline worked");
+      }
+    });
 });
 
 router.get("/:userId/messages", function(req, res) {
@@ -194,24 +199,24 @@ router.get("/:userId/messages", function(req, res) {
   });
 });
 
-router.post("/togglegoal", function(req, res){
-  Goal.findById(req.body.goalId, function(err, goal){
-    if(err) {
-      console.log("Error finding goal for toggleGoal", err)
+router.post("/togglegoal", function(req, res) {
+  Goal.findById(req.body.goalId, function(err, goal) {
+    if (err) {
+      console.log("Error finding goal for toggleGoal", err);
     }
-    if (!err){
-      console.log(goal)
+    if (!err) {
+      console.log(goal);
       goal.isCompleted = !goal.isCompleted;
-      goal.save(function (err2, result){
-        if(err2){
-          console.log("Error saving toggle to goal", err2)
+      goal.save(function(err2, result) {
+        if (err2) {
+          console.log("Error saving toggle to goal", err2);
         }
-        if(!err2){
-          res.json({success: true, error:"", data: goal})
+        if (!err2) {
+          res.json({ success: true, error: "", data: goal });
         }
-      })
+      });
     }
-  })
-}) 
+  });
+});
 
 module.exports = router;
