@@ -36,6 +36,7 @@ router.post("/:goalId/newrec", function(req, res, next) {
     likes: 0
   });
 
+
   newRec.save(function(err, res) {
     if (err) {
       res.json({ success: false, error: err });
@@ -82,7 +83,7 @@ router.post("/:userId/newMessage", function(req, res) {
       res.json({ success: false, error: err });
     }
     if (!err) {
-      res.json({ success: true, error: err });
+      res.json({ success: true, error: "" });
     }
   });
 });
