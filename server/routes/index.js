@@ -9,7 +9,7 @@ router.use(function(req, res, next){
       res.json({success: false, error: 'Not logged in user'});
     } 
     else { 
-        return next(); 
+        return next(); s
     }
   });
 
@@ -24,12 +24,12 @@ router.post('/newgoal', function(req, res, next){
     newGoal.save(function(err, result){
         if (err) {res.json({success: false, error : err})}
         if (!err) { 
-            User.find({_id: userId}, function(err, user){
+            User.find({_id: userId}.populate('user').exec(function(err, user){
                 if (err) {console.log(err) }
                 if (!err) { 
                     user.goals.push(newGoal._id); 
                 }
-            })
+            }))
             res.json({success: true, error: ''})}
     })
 })
@@ -125,21 +125,24 @@ router.get('/:userId', function(err, res){
     
        else {
            User.findOne({_id: userId }, function(error, result){
-               if (error) { res.send(error) }
+               if (error) { res.json({success: false, error: error, data: null}) }
                if (!error) {
-                   res.send(result); 
+                console.log(result); 
+                res.json({success: true, error: '', data: result});
+                
                }
            })
-       }
+        }
     }); 
     
     
     router.get('/timeline', function(err, res){
         if (err) {res.send(err)}
         Goal.find(function(error, result){
-            if (error) { console.log(error)}
+            if (error) { res.json({success: false, error: error, data: []})}
             else {
-                res.send(result); 
+                res.json({success: true, error: "", data: result})
+                
             }
         })
     })
@@ -148,7 +151,7 @@ router.get('/:userId', function(err, res){
     router.get('/:userId/messages', function(err, res){
         let loggedUserId = req.user._id; 
         let userId = req.params.userId; 
-        if (err) { res.send({success: false, erro: err})}
+        if (err) { res.json({success: false, error: err})}
         Message.find({from: loggedUserId, to: userId }, function(errOne, resultOne){
             if (errOne) { console.log(error) }
             if (!error) {
@@ -162,10 +165,12 @@ router.get('/:userId', function(err, res){
                         let result = resultOne; 
                         result.push(resultTwo); 
                         result.flat(); 
-                        res.send(result); 
+                        res.json({success: true, error: '', data: result}); 
                     }
                 })
             }
         })
     })
+
+
 module.exports = router; 
