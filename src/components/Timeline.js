@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 
 function Timeline() {
   const [goals, setGoals] = useState([]);
-  const [newRec, setNewRec] = useState("");
   const [newGoal, setNewGoal] = useState("");
+  const [newRec, setNewRec] = useState(""); 
+  const [recs, setRecs] = useState([]); 
 
   useEffect(() => {
     fetch("http://localhost:4000/timeline", {
@@ -49,6 +50,33 @@ function Timeline() {
       .catch(err => console.log(err));
   }
 
+  function addNewRec(e, goalId) {
+    e.preventDefault(); 
+    const link = "http://localhost:4000/:" + goalId + "/newrec"; 
+    fetch(link, {
+      method: "POST", 
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include",
+      redirect: "follow",
+      body: JSON.stringify({
+        content: newRec
+      })
+    })
+    .then(response => {
+      console.log(response); 
+      return (response.json)})
+    .then(responseJson => {
+      console.log(responseJson);
+      if (responseJson.success) {
+        alert("Rec added!");
+      }
+    })
+    .catch(err => console.log(err));
+
+  }
+
   return (
     <div className="timeline">
       <div>
@@ -82,8 +110,9 @@ function Timeline() {
                     name="newRec"
                     value={newRec}
                     placeholder="Make a recommendation!"
-                    onChange={e => setNewRec(e.target.value)}
+                    onChange={e => {setNewRec(e.target.value);}}
                   />
+                  <input type="submit" value="Add" onClick={e => addNewRec(e, goal._id)} />
                 </div>
               </div>
             );

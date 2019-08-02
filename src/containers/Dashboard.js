@@ -1,7 +1,7 @@
 import React from "react";
 import Profile from "../components/Profile"
 import Timeline from "../components/Timeline"
-// import Messages from "../components/Messages"
+import Messages from "../components/Messages"
 
 function Dashboard(){
 
@@ -13,6 +13,7 @@ function Dashboard(){
             <div className="dashboardBody">
             <Profile />
             <Timeline />
+            <Messages id = 'saaa'/>
             </div>
            
         </div>

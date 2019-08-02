@@ -7,6 +7,8 @@ const logger = require("morgan");
 const cors = require("cors");
 const app = express();
 
+
+
 const mongoose = require("mongoose");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -15,6 +17,22 @@ const routes = require("./routes/index");
 const auth = require("./routes/auth");
 const crypto = require("crypto");
 const MongoStore = require("connect-mongo")(session);
+const socket = require('socket.io'); 
+
+
+const server = require('http').Server(app);
+
+const io = socket(server); 
+
+io.on('connection', (socket)=> {
+  console.log(socket.id); 
+  socket.on('SEND_MESSAGE', function(data){
+    io.emit('RECEIVE_MESSAGE', data);
+  }); 
+});
+
+
+
 
 const REQUIRED_ENVS = ["MONGODB_URI"];
 
@@ -123,4 +141,9 @@ app.use(function(err, req, res, next) {
   });
 });
 
-module.exports = app;
+
+server.listen(4000, function(){
+  console.log('server is running on port 4000')
+});
+
+// module.exports = app;
