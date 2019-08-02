@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Link, Redirect } from "react-router-dom";
+//import { BrowserRouter, Route, Link, Redirect } from "react-router-dom";
 import NewRec from "./NewRec";
-import Messages from "./Messages"; 
+import Messages from "./Messages";
 
 function Timeline() {
   const [goals, setGoals] = useState([]);
@@ -10,8 +10,24 @@ function Timeline() {
   const [recId, setRecId] = useState("");
   const [userId, setUserId] = useState("");
 
+  function getGoals() {
+    fetch("http://localhost:4000/timeline", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include"
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson.success) {
+          console.log("responsejson data", responseJson.data);
+          setGoals(responseJson.data);
+        }
+      })
+      .catch(err => console.log(err));
+  }
 
-  
   useEffect(() => {
     fetch("http://localhost:4000/timeline", {
       method: "GET",
@@ -47,7 +63,7 @@ function Timeline() {
         return response.json;
       })
       .then(responseJson => {
-        console.log(responseJson);
+        console.log(responseJson.sucess);
         if (responseJson.success) {
           alert("Goal added!");
           setNewGoal("");
@@ -56,85 +72,86 @@ function Timeline() {
       .catch(err => console.log(err));
   }
 
-if(openMessage){
- return <Messages userId={userId} recId={recId}/> 
-} else{
-
-  return (
-    <div className="timeline">
-      <div>
-        <h2 style={{ textAlign: "center" }}> All Goals</h2>
-        <div className="form-group row offset-sm-1">
-          <label className="col-sm-2 col-form-label">Set a new Goal! </label>
-          <div className="col-sm-8">
-            <textarea
-              className="form-control"
-              name="newGoal"
-              value={newGoal}
-              placeholder="Add my own goal"
-              onChange={e => setNewGoal(e.target.value)}
-              //   onKeyPress={e => addNewGoal(e)}
+  if (openMessage) {
+    return <Messages userId={userId} recId={recId} />;
+  } else {
+    return (
+      <div className="timeline">
+        <div>
+          <h2 style={{ textAlign: "center" }}> All Goals</h2>
+          <div className="form-group row offset-sm-1">
+            <label className="col-sm-2 col-form-label">Set a new Goal! </label>
+            <div className="col-sm-8">
+              <textarea
+                className="form-control"
+                name="newGoal"
+                value={newGoal}
+                placeholder="Add my own goal"
+                onChange={e => setNewGoal(e.target.value)}
+              />
+            </div>
+            <input
+              className="btn btn-success col-sm-1"
+              type="submit"
+              value="Add"
+              onClick={e => {
+                addNewGoal(e);
+                setNewGoal("");
+                getGoals();
+              }}
             />
           </div>
-          <input
-            className="btn btn-success col-sm-1"
-            type="submit"
-            value="Add"
-            onClick={e => addNewGoal(e)}
-          />
-        </div>
-        <ul>
-          {goals.map(goal => {
-            return (
-              <div
-                className="goalContainer"
-                style={{ display: "flex", flexDirection: "row" }}
-              >
+          <ul>
+            {goals.map(goal => {
+              return (
                 <div
-                  className="user"
-                  style={{ flex: 1, flexDirection: "column" }}
+                  className="goalContainer"
+                  style={{ display: "flex", flexDirection: "row" }}
                 >
-                  {/* Div with user info */}
-                  <img src={goal.user.profilePic} alt="profile pic" />
-                  <p>Goal by user: {goal.user.firstName}</p>
+                  <div
+                    className="user"
+                    style={{ flex: 1, flexDirection: "column" }}
+                  >
+                    {/* Div with user info */}
+                    <img src={goal.user.profilePic} alt="profile pic" />
+                    <p>Goal by user: {goal.user.firstName}</p>
+                  </div>
+                  <div style={{ flex: 2, flexDirection: "column" }}>
+                    {/* Div with goal info */}
+                    <h3>{goal.content}</h3>
+                    {console.log("goal", goal)}
+                    {console.log("rec array", goal.rec)}
+                    <h4>Recommendations</h4>
+                    {goal.rec.map(rec => (
+                      <div>
+                        <p>
+                          {rec.user._id} recommended: {rec.content}
+                        </p>
+                        <button
+                          onClick={e => {
+                            e.preventDefault();
+                            // return <Messages userId={goal.user._id} recId={rec.user}/>;
+                            console.log("i clicked");
+                            setOpenMessage(true);
+                            setUserId(goal.user._id);
+                            setRecId(rec.user);
+                          }}
+                        >
+                          {" "}
+                          Message them!
+                        </button>
+                      </div>
+                    ))}
+                    <NewRec goalID={goal._id} getGoals={getGoals} />
+                  </div>
                 </div>
-                <div style={{ flex: 2, flexDirection: "column" }}>
-                  {/* Div with goal info */}
-                  <h3>{goal.content}</h3>
-                  {console.log("goal", goal)}
-                  {console.log("rec array", goal.rec)}
-                  <h4>Recommendations</h4>
-                  {goal.rec.map(rec => (
-                    <div>
-                      <p>
-                        {rec.user._id} recommended: {rec.content}
-                      </p>
-                      <button
-                        onClick={e => {
-                          e.preventDefault();
-                          // return <Messages userId={goal.user._id} recId={rec.user}/>;
-                          console.log('i clicked');
-                          setOpenMessage(true);
-                          setUserId(goal.user._id); 
-                          setRecId(rec.user); 
-                        }}
-                      >
-                        {" "}
-                        Message them!
-                      </button>
-                    </div>
-                  ))}
-                  <NewRec goalID={goal._id} />
-                </div>
-              </div>
-            );
-          })}
-        </ul>
+              );
+            })}
+          </ul>
+        </div>
       </div>
-    </div>
-  );
-}
-  
+    );
+  }
 }
 
 export default Timeline;
