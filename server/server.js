@@ -7,8 +7,6 @@ const logger = require("morgan");
 const cors = require("cors");
 const app = express();
 
-
-
 const mongoose = require("mongoose");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -17,11 +15,11 @@ const routes = require("./routes/index");
 const auth = require("./routes/auth");
 const crypto = require("crypto");
 const MongoStore = require("connect-mongo")(session);
-const socket = require('socket.io'); 
+const socket = require("socket.io");
 
+const server = require("http").Server(app);
 
-
-const server = require('http').Server(app);
+const io = socket(server);
 
 const io = socket(server); 
 
@@ -154,9 +152,8 @@ app.use(function(err, req, res, next) {
   });
 });
 
-
-server.listen(4000, function(){
-  console.log('server is running on port 4000')
+server.listen(4000, function() {
+  console.log("server is running on port 4000");
 });
 
 // module.exports = app;

@@ -29,7 +29,7 @@ router.post("/newgoal", function(req, res, next) {
 
 router.post("/:goalId/newrec", function(req, res, next) {
   let goalId = req.params.goalId;
-  console.log(goalId);
+  // console.log(goalId);
   let newRec = new Rec({
     user: req.user._id,
     content: req.body.content,
@@ -37,21 +37,29 @@ router.post("/:goalId/newrec", function(req, res, next) {
     goal: goalId,
     likes: 0
   });
-  console.log("newrec", newRec);
+  // console.log("newrec", newRec);
 
   newRec.save(function(err, resp) {
     if (err) {
       res.json({ success: false, error: err });
     }
     if (!err) {
-      Goal.findOne({ _id: goalId }, function(err, goal) {
+      Goal.findById(goalId, function(err, goal) {
         console.log(goal);
         if (err) {
           console.log(err);
         }
         if (!err) {
           goal.rec.push(newRec._id);
-          res.json({ success: true, error: "" });
+          goal.save(function(err2, resp2) {
+            if (err2) {
+              console.log("Error saving rec to goal");
+            }
+            if (!err2) {
+              console.log("goal is saved after rec is added");
+              res.json({ success: true, error: "", data: goal });
+            }
+          });
         }
       });
     }
@@ -160,6 +168,7 @@ router.get("/me", function(req, res) {
 router.get("/timeline", function(req, res) {
   Goal.find()
     .populate("user")
+    .populate("rec")
     .exec(function(error, result) {
       if (error) {
         res.json({ success: false, error: error, data: [] });
