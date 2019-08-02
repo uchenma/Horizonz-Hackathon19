@@ -53,7 +53,7 @@ function Profile() {
     <div className="profile">
       {profile && 
       <div> 
-      <h2 style={{textAlign:"center"}}>Your Profile!</h2>
+      <h2 style={{textAlign:"center"}}>Your Profile! (userId: {window.localStorage.getItem('userId').slice(-4)})</h2>
       <img src={profile.profilePic} />
       <h3>
         Name: {profile.firstName} {profile.lastName}

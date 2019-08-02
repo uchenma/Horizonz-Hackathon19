@@ -181,19 +181,19 @@ router.get("/timeline", function(req, res) {
     });
 });
 
-router.get("/:userId/messages", function(req, res) {
-  let loggedUserId = req.user._id;
+router.get("/messages/:userId/:recId", function(req, res) {
+  let recId = new mongoose.Types.ObjectId(req.params.recId);;
   let userId = new mongoose.Types.ObjectId(req.params.userId); 
-  console.log(loggedUserId, userId);
+  console.log(recId, userId);
 
-  Message.find({ from: loggedUserId, to: userId }, function(errOne, resultOne) {
-    console.log("user ids: ", loggedUserId, userId);
+  Message.find({ from: recId, to: userId }, function(errOne, resultOne) {
+    console.log("user ids: ", recId, userId);
     console.log("DATABASE RESULTS:", resultOne);
     if (errOne) {
       console.log(errOne);
     }
     if (!errOne) {
-      Message.find({ from: userId, to: loggedUserId }, function(
+      Message.find({ from: userId, to: recId }, function(
         errTwo,
         resultTwo
       ) {

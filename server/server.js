@@ -35,7 +35,8 @@ io.on('connection', (socket)=> {
       io.emit('RECEIVE_MESSAGE', Object.assign({}, data));   
        console.log('successfully saved!'); 
       }
-    })
+    });
+
     
   }); 
 });
@@ -51,7 +52,11 @@ REQUIRED_ENVS.forEach(function(el) {
   if (!process.env[el]) throw new Error("Missing required env var " + el);
 });
 mongoose.connect(process.env.MONGODB_URI);
-mongoose.connection.once("open", () => console.log(`Connected to MongoDB!`));
+mongoose.connection.on("open", () => console.log(`Connected to MongoDB!`));
+mongoose.connection.on('error',function (err) {  
+  console.log('Mongoose default connection error: ' + err);
+}); 
+
 
 app.get("/", (req, res) => {
   res.send("hello");

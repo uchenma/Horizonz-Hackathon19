@@ -25,6 +25,8 @@ function Login() {
       .then(responseJson => {
         console.log("post /login response:", responseJson);
         if (responseJson.success) {
+          localStorage.setItem('userId', responseJson.user._id)
+          
           setIsLogin(true);
         }
       })

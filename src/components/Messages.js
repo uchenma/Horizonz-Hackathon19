@@ -11,7 +11,7 @@ function Message({userId, recId}) {
 
 
     useEffect(()=> {
-        const link = "http://localhost:4000/" + recId + '/messages'; 
+        const link = `http://localhost:4000/messages/${userId}/${recId}`; 
         fetch(link, {
             method: "GET",
             headers: {
@@ -77,15 +77,18 @@ function Message({userId, recId}) {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-4">
+                    <div className="col-12">
                         <div className="card">
                             <div className="card-body">
-                                <div className="card-title">Global Chat</div>
+                                <div className="card-title">
+                                    Global Chat
+                                    me: {userId.slice(-4)} | recId: {recId.slice(-4)}
+                                    </div>
                                 <hr/>
                                 <div className="messages">
                                     {messages.map(message => {
                                         return (
-                                            <div> {message.from} : {message.to} : {message.content} </div>
+                                            <div> {userId.slice(-4)} to {recId.slice(-4)} : {message.content} </div>
                                         );
                                     })}
                                 </div>
