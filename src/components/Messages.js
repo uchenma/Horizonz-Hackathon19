@@ -26,7 +26,6 @@ function Message({ userId, recId }) {
             .then(response => response.json())
             .then(responseJson => {
                 if (responseJson.success) {
-                    debugger
                     console.log("responsejson data", responseJson.data);
                     setMessages(messages.concat(responseJson.data));
                 }
@@ -76,11 +75,13 @@ function Message({ userId, recId }) {
     //     };
 
     return (
-        <div className="container">
-            <div className="row">
+
+        <div className="messageBox">
+            <div className="row" style={{width:"100%"}}>
                 <div className="col-12">
                     <div className="card" style={{
-                        'background': "linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)"
+                        background: "rgb(255,255,255,0.2)",
+                        margin:"5%"
 
                     }}>
                         <div className="card-body">
@@ -96,10 +97,10 @@ function Message({ userId, recId }) {
                                     );
                                 })}
                             </div>
-                            <div className="footer">
+                            <div style={{paddingTop: 20}}className="footer">
                                 <input type="text" placeholder="Message" className="form-control" value={message} onChange={e => setMessage(e.target.value)} />
                                 <br />
-                                <input type="submit" className="btn btn-primary form-control" value='Send' onClick={e => sendMessage(e, userId, recId)} />
+                                <input type="submit" className="ghost-button form-control" value='Send' onClick={e => sendMessage(e, userId, recId)} />
                             </div>
                         </div>
                     </div>

@@ -189,7 +189,8 @@ p {
 
 
 .ghost-button {
-  color: black;
+  color: white;
+  background: rgba(255,255,255,0.2);
   border: 1px solid #fafafa;
   border-radius: 4px;
   font-size: 17px;
@@ -221,4 +222,14 @@ background-color:rgba(0, 150, 136, 0.4);
 
 .signupForm{
   width: 60%;
+}
+
+.messageBox{
+  display: flex;
+  flex: 3;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
 }

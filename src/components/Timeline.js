@@ -109,7 +109,7 @@ function Timeline() {
                 <div className="goalContainer">
                   <div className="user">
                     {/* Div with user info */}
-                    <img src={goal.user.profilePic} alt="profile pic" />
+                    <img style={{width:100,height: 100}} src={goal.user.profilePic} alt="profile pic" />
                     <h5>anonymousDolphin</h5>
                     <h5>Age: {goal.user.age}</h5>
                     <h5>Bio: {goal.user.bio}</h5>
