@@ -32,7 +32,7 @@ function NewRec(goalID) {
   return (
     <div>
       <div class="form-group row">
-        <div className="col-sm-8">
+        <div className="col-sm-9">
           <textarea
             className="form-control"
             name="newRec"
