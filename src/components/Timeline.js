@@ -82,39 +82,40 @@ function Timeline() {
   return (
     <div className="timeline">
       <div>
-        <textarea
-          name="newGoal"
-          value={newGoal}
-          placeholder="Add my own goal"
-          onChange={e => setNewGoal(e.target.value)}
-          //   onKeyPress={e => addNewGoal(e)}
-        />
-        <input type="submit" value="Add" onClick={e => addNewGoal(e)} />
-
-        <h2> All Goals</h2>
+        <h2 style={{ textAlign: "center" }}> All Goals</h2>
+        <div class="form-group row offset-sm-1">
+          <label className="col-sm-2 col-form-label">Set a new Goal! </label>
+          <div className="col-sm-8">
+            <textarea
+              className="form-control"
+              name="newGoal"
+              value={newGoal}
+              placeholder="Add my own goal"
+              onChange={e => setNewGoal(e.target.value)}
+              //   onKeyPress={e => addNewGoal(e)}
+            />
+          </div>
+          <input
+            className="btn btn-success col-sm-1"
+            type="submit"
+            value="Add"
+            onClick={e => addNewGoal(e)}
+          />
+        </div>
         <ul>
           {goals.map(goal => {
             return (
-              <div
-                className="goalContainer"
-                style={{ display: "flex", flexDirection: "row" }}
-              >
-                <div className="user" style={{ flexDirection: "column" }}>
+              <div className="goalContainer" style={{ display: "flex", flexDirection: "row" }}>
+                <div className="user" style={{ flex: 1, flexDirection: "column" }}>
                   {/* Div with user info */}
                   <img src={goal.user.profilePic} />
-                  <h4>Goal by user: {goal.user.firstName}</h4>
+                  <p>Goal by user: {goal.user.firstName}</p>
+
                 </div>
-                <div style={{ flexDirection: "column" }}>
+                <div style={{ flex: 2, flexDirection: "column" }}>
                   {/* Div with goal info */}
-                  <p>{goal.content}</p>
+                  <h3>{goal.content}</h3>
                   <p>{goal.recs}</p>
-                  {/* <textarea
-                    name="newRec"
-                    value={newRec}
-                    placeholder="Make a recommendation!"
-                    onChange={e => {setNewRec(e.target.value);}}
-                  />
-                  <input type="submit" value="Add" onClick={e => addNewRec(e, goal._id)} /> */}
                   <NewRec goalID={goal._id} />
                 </div>
               </div>
