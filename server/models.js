@@ -34,12 +34,6 @@ var userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  goals: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Goal"
-    }
-  ]
 });
 
 const RecSchema = new Schema({
@@ -87,6 +81,7 @@ const goalSchema = new Schema({
     type: Date,
     required: false
   },
+  isCompleted: Boolean,
   rec: [
     {
       type: mongoose.Schema.Types.ObjectId,

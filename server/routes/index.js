@@ -18,6 +18,7 @@ router.post("/newgoal", function(req, res, next) {
     user: userId,
     content: req.body.content,
     createdAt: new Date(),
+    isCompleted: false,
     recs: []
   });
   newGoal.save(function(err, result) {
@@ -141,10 +142,15 @@ router.get("/me", function(req, res){
   console.log(req.user);
   User.findOne({_id: userId}, function(error, result){
     if (error) {
-    res.json({ success: false, error: error, data: null});}
-    if (!error) {
-      res.json({ success: true, error: "", data: result});
-    }
+      res.json({ success: false, error: "can't find user", data: null});}
+    Goal.find({user: userId}, function (err, goals){
+      if(err) {
+        res.json({success: false, error: "can't find goals from userid"})
+      }
+      if (!err) {
+        res.json({ success: true, error: "", data: result, goals});
+      }
+    })   
   })
 });
 
@@ -187,5 +193,25 @@ router.get("/:userId/messages", function(req, res) {
     }
   });
 });
+
+router.post("/togglegoal", function(req, res){
+  Goal.findById(req.body.goalId, function(err, goal){
+    if(err) {
+      console.log("Error finding goal for toggleGoal", err)
+    }
+    if (!err){
+      console.log(goal)
+      goal.isCompleted = !goal.isCompleted;
+      goal.save(function (err2, result){
+        if(err2){
+          console.log("Error saving toggle to goal", err2)
+        }
+        if(!err2){
+          res.json({success: true, error:"", data: goal})
+        }
+      })
+    }
+  })
+}) 
 
 module.exports = router;
