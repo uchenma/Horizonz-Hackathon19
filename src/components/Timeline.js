@@ -36,11 +36,13 @@ function Timeline() {
         content: newGoal
       })
     })
-      .then(response => response.json())
+      .then(response => {
+        console.log(response); 
+        return (response.json)})
       .then(responseJson => {
         console.log(responseJson);
         if (responseJson.success) {
-          //   setGoals(responseJson.goals);
+            setGoals(goals.push(responseJson.data));
           alert("Goal added!");
         }
       })
@@ -70,7 +72,7 @@ function Timeline() {
                 <div className="user" style={{ flexDirection: "column" }}>
                   {/* Div with user info */}
                   {goal.user.profilePic}
-                  <h4>Goal by user: {goals.user._id}</h4>
+                  <h4>Goal by user: {goal.user.firstName}</h4>
                 </div>
                 <div style={{ flexDirection: "column" }}>
                   {/* Div with goal info */}

@@ -14,7 +14,7 @@ module.exports = function(passport, hash) {
       age: req.body.age,
       gender: req.body.gender,
       bio: req.body.bio,
-      goals: req.body.goals
+      goals: []
     });
     console.log(newUser);
     newUser.save(function(err, result) {
@@ -26,16 +26,6 @@ module.exports = function(passport, hash) {
     });
   });
 
-  router.use((req, res, next) => {
-    if (!req.user) {
-      res.status(401).json({
-        success: false,
-        error: "Not authorized"
-      });
-      return;
-    }
-    next();
-  });
 
   router.post(
     "/login",
@@ -74,6 +64,17 @@ module.exports = function(passport, hash) {
       success: true,
       error: ""
     });
+  });
+
+  router.use((req, res, next) => {
+    if (!req.user) {
+      res.status(401).json({
+        success: false,
+        error: "Not authorized"
+      });
+      return;
+    }
+    next();
   });
 
   return router;

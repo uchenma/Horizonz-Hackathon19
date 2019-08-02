@@ -21,14 +21,7 @@ router.post("/newgoal", function(req, res, next) {
     recs: []
   });
   newGoal.save(function(err, result) {
-    if (err) return res.json({ success: false, error: err });
-    User.find(
-      { _id: userId }.exec(function(err, user) {
-        if (err) return console.log(err);
-
-        user.goals.push(newGoal._id);
-      })
-    );
+    if (err) return res.json({ success: false, error: err, data: null });
     res.json({ success: true, error: "", data: result });
   });
 });
@@ -143,11 +136,13 @@ router.get("/users/:userId", function(req, res) {
 });
 
 router.get("/timeline", function(req, res) {
-  Goal.find(function(error, result) {
+  Goal.find().populate('user').exec(function(error, result) {
     if (error) {
       res.json({ success: false, error: error, data: [] });
+      console.log(error);
     } else {
       res.json({ success: true, error: "", data: result });
+      console.log("/timeline worked");
     }
   });
 });
