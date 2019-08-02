@@ -24,21 +24,33 @@ function NewRec(goalID) {
         console.log(responseJson);
         if (responseJson.success) {
           alert("Rec added!");
+          setNewRec("")
         }
       })
       .catch(err => console.log(err));
   }
   return (
     <div>
-      <textarea
-        name="newRec"
-        value={newRec}
-        placeholder="Make a recommendation!"
-        onChange={e => {
-          setNewRec(e.target.value);
-        }}
-      />
-      <input type="submit" value="Add" onClick={e => addNewRec(e, goalID)} />
+      <div class="form-group row">
+        <div className="col-sm-8">
+          <textarea
+            className="form-control"
+            name="newRec"
+            value={newRec}
+            placeholder="Make a recommendation!"
+            onChange={e => {
+              setNewRec(e.target.value);
+            }}
+          />
+        </div>
+
+        <input
+          className="btn btn-success col-sm-2"
+          type="submit"
+          value="Add"
+          onClick={e => addNewRec(e, goalID)}
+        />
+      </div>
     </div>
   );
 }
