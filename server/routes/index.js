@@ -135,6 +135,18 @@ router.get("/users/:userId", function(req, res) {
   }
 });
 
+router.get("/me", function(req, res){
+  const userId = req.user._id; 
+  console.log(req.user);
+  User.findOne({_id: userId}, function(error, result){
+    if (error) {
+    res.json({ success: false, error: error, data: null});}
+    if (!error) {
+      res.json({ success: true, error: "", data: result});
+    }
+  })
+});
+
 router.get("/timeline", function(req, res) {
   Goal.find().populate('user').exec(function(error, result) {
     if (error) {
