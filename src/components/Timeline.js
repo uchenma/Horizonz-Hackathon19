@@ -83,7 +83,7 @@ function Timeline() {
     <div className="timeline">
       <div>
         <h2 style={{ textAlign: "center" }}> All Goals</h2>
-        <div class="form-group row offset-sm-1">
+        <div className="form-group row offset-sm-1">
           <label className="col-sm-2 col-form-label">Set a new Goal! </label>
           <div className="col-sm-8">
             <textarea

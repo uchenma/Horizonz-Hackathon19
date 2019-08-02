@@ -92,16 +92,16 @@ const goalSchema = new Schema({
 
 const messageSchema = new Schema({
   to: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    type: String
+    // ref: "User"
   },
   from: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    type: String
+    // ref: "User"
   },
   sentAt: {
     type: Date,
-    required: true
+    required: false
   },
   content: {
     type: String,

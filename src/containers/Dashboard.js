@@ -12,7 +12,7 @@ function Dashboard() {
       <div className="dashboardBody">
         <Profile />
         <Timeline />
-        {/* <Messages id="saaa" /> */}
+        <Messages id="saaa" />
       </div>
     </div>
   );

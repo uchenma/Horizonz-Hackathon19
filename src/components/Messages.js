@@ -11,8 +11,8 @@ function Message(props) {
     function sendMessage(e) {
         e.preventDefault(); 
         socket.emit('SEND_MESSAGE', {
-            from: from, 
-            to: to, 
+            from: 'Alex', 
+            to: 'Zack', 
             content: message
         }); 
         setMessage(""); 
