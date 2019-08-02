@@ -36,22 +36,37 @@ function Login() {
   } else {
     return (
       <div>
+        <h3 style={{textAlign:"center"}}>Login</h3>
         <form onSubmit={e => login(e)}>
+        <div class="form-group row">
+          <label className="col-sm-2 col-form-label">Email </label>
+          <div className="col-sm-10">
           <input
+          className="form-control"
             type="text"
             name="email"
             value={email}
             placeholder="email"
             onChange={e => setEmail(e.target.value)}
           />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label className="col-sm-2 col-form-label">Password </label>
+          <div className="col-sm-10">
           <input
+          className="form-control"
             type="password"
             name="password"
             value={password}
             placeholder="password"
             onChange={e => setPassword(e.target.value)}
           />
-          <input type="submit" value="Login" />
+          </div>
+        </div>
+          
+          
+          <input className="btn btn-success" type="submit" value="Login" />
         </form>
       </div>
     );

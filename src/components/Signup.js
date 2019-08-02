@@ -52,57 +52,98 @@ function Signup() {
     return <Redirect to="/login" />;
   } else {
     return (
-      <div>
+      <div >
+        <h3 style={{textAlign:"center"}}>Register</h3>
         <form onSubmit={e => signup(e)}>
-          <input
-            type="text"
-            name="email"
-            value={email}
-            placeholder="email"
-            onChange={e => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            name="password"
-            value={password}
-            placeholder="password"
-            onChange={e => setPassword(e.target.value)}
-          />
-          <input
-            type="text"
-            name="firstName"
-            value={firstName}
-            placeholder="Enter your first name"
-            onChange={e => setFirstName(e.target.value)}
-          />
-          <input
-            type="text"
-            name="lastName"
-            value={lastName}
-            placeholder="Enter your last name"
-            onChange={e => setLastName(e.target.value)}
-          />
-          <input
-            type="text"
+          <div className="form-row">
+            <div className="form-group col-md-6">
+              <label>Email</label>
+              <input
+                className="form-control"
+                type="text"
+                name="email"
+                value={email}
+                placeholder="email"
+                onChange={e => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="form-group col-md-6">
+              <label>Password</label>
+              <input
+                className="form-control"
+                type="password"
+                name="password"
+                value={password}
+                placeholder="password"
+                onChange={e => setPassword(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="form-row">
+            <div className="form-group col-md-6">
+              <label> First Name</label>
+              <input
+              className="form-control"
+                type="text"
+                name="firstName"
+                value={firstName}
+                placeholder="Enter your first name"
+                onChange={e => setFirstName(e.target.value)}
+              />
+            </div>
+            <div className="form-group col-md-6">
+              <label> Last Name</label>
+              <input
+              className="form-control"
+                type="text"
+                name="lastName"
+                value={lastName}
+                placeholder="Enter your last name"
+                onChange={e => setLastName(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="form-row">
+            <div className="form-group col-md-6">
+              <label>Age</label>
+            <input
+            className="form-control"
+            type="number"
             name="age"
             value={age}
             placeholder="Enter your age"
             onChange={e => setAge(e.target.value)}
           />
-          <input
+            </div>
+            <div className="form-group col-md-6">
+              <label>Profile Picture </label>
+              <input
+              className="form-control"
             type="text"
             name="profilePic"
             value={profilePic}
             placeholder="Enter an image URL to display on your profile"
             onChange={e => setProfilePic(e.target.value)}
           />
-          <textarea
+            </div>
+          </div>
+
+          <div className="form-row">
+            <div className="form-group col-md-6">
+              <label>Bio</label>
+              <textarea
+            className="form-control"
             name="bio"
             value={bio}
             placeholder="Type a short bio"
             onChange={e => setBio(e.target.value)}
           />
-          <div>
+            </div>
+            <div className="form-group col-md-6">
+              <label>Gender </label>
+              <div>
             <div className="form-check">
               <label>
                 <input
@@ -143,12 +184,15 @@ function Signup() {
               </label>
             </div>
           </div>
-          <input type="submit" value="Sign up!" />
+            </div>
+          </div>
+          
+          <input className="btn btn-primary" type="submit" value="Sign up!" />
+          <Link to="/login">Login Here!</Link>
         </form>
       </div>
     );
   }
-
 }
 
 export default Signup;

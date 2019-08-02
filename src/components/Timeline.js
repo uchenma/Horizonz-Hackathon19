@@ -46,6 +46,8 @@ function Timeline() {
   }
 
   return (
+
+    <div className="timeline">
     <div>
       <textarea
         name="newGoal"
@@ -55,6 +57,7 @@ function Timeline() {
         // onKeyPress={e => addNewGoal(e)}
       />
       <input type="submit" value="Add" onClick={e => addNewGoal(e)} />
+
       <h2> All Goals</h2>
       <ul>
         {goals.map(goal => {
