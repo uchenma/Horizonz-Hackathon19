@@ -8,6 +8,27 @@ function Message({userId, recId}) {
     const [from, setFrom] = useState(""); 
     const [to, setTo] = useState(""); 
     const socket = io('localhost:4000');
+
+
+    useEffect(()=> {
+        const link = "http://localhost:4000/" + recId + '/messages'; 
+        fetch(link, {
+            method: "GET",
+            headers: {
+                 "Content-Type": "application/json"
+      },
+            credentials: "include"
+    })
+        .then(response => response.json())
+        .then(responseJson => {
+         if (responseJson.success) {
+          console.log("responsejson data", responseJson.data);
+          setMessages(messages.concat(responseJson.data));
+        }
+      })
+      .catch(err => console.log(err));
+  }, []);
+
     
     function sendMessage(e) {
         e.preventDefault(); 
@@ -21,7 +42,10 @@ function Message({userId, recId}) {
 
     socket.on('RECEIVE_MESSAGE', function(data){
         setMessages(messages.concat(data));
-    })
+    }); 
+
+
+    
     
 
     // function newMessage(e, id) {

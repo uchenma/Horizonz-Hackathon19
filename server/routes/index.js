@@ -100,8 +100,8 @@ router.post("/:userId/newMessage", function(req, res) {
 });
 
 router.post("/:userId/score", function(req, res) {
-  let user1 = req.user._id;
-  let user2 = req.params.userId;
+  let user1 = new mongoose.Types.ObjectId(req.user._id);
+  let user2 = new mongoose.Types.ObjectId(req.params.userId);
 
   Score.find({ user1: user1, user2: user2 }, function(err, score) {
     if (err) {
@@ -110,6 +110,7 @@ router.post("/:userId/score", function(req, res) {
         user2: req.params.userId,
         score: 1
       });
+
 
       newScore.save(function(error, success) {
         if (error) {
@@ -182,9 +183,12 @@ router.get("/timeline", function(req, res) {
 
 router.get("/:userId/messages", function(req, res) {
   let loggedUserId = req.user._id;
-  let userId = req.params.userId;
+  let userId = new mongoose.Types.ObjectId(req.params.userId); 
+  console.log(loggedUserId, userId);
 
   Message.find({ from: loggedUserId, to: userId }, function(errOne, resultOne) {
+    console.log("user ids: ", loggedUserId, userId);
+    console.log("DATABASE RESULTS:", resultOne);
     if (errOne) {
       console.log(errOne);
     }
@@ -193,14 +197,19 @@ router.get("/:userId/messages", function(req, res) {
         errTwo,
         resultTwo
       ) {
+        // console.log('result two', resultTwo);
         if (errTwo) {
           console.log(errTwo);
         }
 
         if (!errTwo) {
-          let result = resultOne;
-          result.push(resultTwo);
-          result.flat();
+          let result = [...resultOne, ...resultTwo];
+          result.sort((a,b) => a.sentAt - b.sentAt)
+          // // result.push(resultTwo);
+
+          // console.log(Array.isArray(result));
+          // result = result.concat(resultTwo);
+          console.log('in it',result);
           res.json({ success: true, error: "", data: result });
         }
       });

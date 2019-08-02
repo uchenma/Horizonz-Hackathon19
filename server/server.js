@@ -32,10 +32,11 @@ io.on('connection', (socket)=> {
     newMessage.save(function(err, result){
       if (err) {console.log(err)}
       if (!err) {
-        console.log('successfully saved!'); 
+      io.emit('RECEIVE_MESSAGE', Object.assign({}, data));   
+       console.log('successfully saved!'); 
       }
     })
-    io.emit('RECEIVE_MESSAGE', Object.assign({}, data));
+    
   }); 
 });
 

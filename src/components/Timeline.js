@@ -10,6 +10,7 @@ function Timeline() {
   const [recId, setRecId] = useState("");
   const [userId, setUserId] = useState("");
 
+  console.log('Timeline', userId, recId)
 
   
   useEffect(() => {

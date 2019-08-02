@@ -43,11 +43,11 @@ const RecSchema = new Schema({
   },
   likes: Number,
   goal: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.ObjectId,
     ref: "Goal"
   },
   user: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.ObjectId,
     ref: "User"
   },
   createdAt: {
@@ -58,11 +58,11 @@ const RecSchema = new Schema({
 
 const ScoreSchema = new Schema({
   user1: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.ObjectId,
     ref: "User"
   },
   user2: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.ObjectId,
     ref: "User"
   },
   score: Number
@@ -84,7 +84,7 @@ const goalSchema = new Schema({
   isCompleted: Boolean,
   rec: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.ObjectId,
       ref: "Rec"
     }
   ]
@@ -92,11 +92,11 @@ const goalSchema = new Schema({
 
 const messageSchema = new Schema({
   to: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.ObjectId,
     ref: "User"
   },
   from: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.ObjectId,
     ref: "User"
   },
   sentAt: {
