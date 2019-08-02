@@ -6,7 +6,7 @@ import Messages from "../components/Messages";
 function Dashboard() {
   return (
     <div className="dashboard">
-      <div className="banner">OUR NAME</div>
+      <div className="banner">Pro-tip-z!</div>
       <div className="dashboardBody">
         <Profile />
         <Timeline />

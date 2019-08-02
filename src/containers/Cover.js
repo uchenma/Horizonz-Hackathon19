@@ -6,8 +6,8 @@ const Cover = function() {
   return (
     <div className="coverPage">
       <div>
-        <h1 style={{textAlign:"center"}}>OUR NAME</h1>
-        <p>Welcome to OUR NAME, a platform for XXX</p>
+        <h1 style={{textAlign:"center"}}>Pro-tip-z</h1>
+        <p>Welcome to Pro-tip-z, a platform for support and love</p>
         </div>
       
       <div className="buttonContainer">
