@@ -14,6 +14,8 @@ function Login() {
       headers: {
         "Content-Type": "application/json"
       },
+      credentials: "include",
+      redirect: "follow",
       body: JSON.stringify({
         username: email,
         password
@@ -36,36 +38,35 @@ function Login() {
   } else {
     return (
       <div>
-        <h3 style={{textAlign:"center"}}>Login</h3>
+        <h3 style={{ textAlign: "center" }}>Login</h3>
         <form onSubmit={e => login(e)}>
-        <div class="form-group row">
-          <label className="col-sm-2 col-form-label">Email </label>
-          <div className="col-sm-10">
-          <input
-          className="form-control"
-            type="text"
-            name="email"
-            value={email}
-            placeholder="email"
-            onChange={e => setEmail(e.target.value)}
-          />
+          <div class="form-group row">
+            <label className="col-sm-2 col-form-label">Email </label>
+            <div className="col-sm-10">
+              <input
+                className="form-control"
+                type="text"
+                name="email"
+                value={email}
+                placeholder="email"
+                onChange={e => setEmail(e.target.value)}
+              />
+            </div>
           </div>
-        </div>
-        <div class="form-group row">
-          <label className="col-sm-2 col-form-label">Password </label>
-          <div className="col-sm-10">
-          <input
-          className="form-control"
-            type="password"
-            name="password"
-            value={password}
-            placeholder="password"
-            onChange={e => setPassword(e.target.value)}
-          />
+          <div class="form-group row">
+            <label className="col-sm-2 col-form-label">Password </label>
+            <div className="col-sm-10">
+              <input
+                className="form-control"
+                type="password"
+                name="password"
+                value={password}
+                placeholder="password"
+                onChange={e => setPassword(e.target.value)}
+              />
+            </div>
           </div>
-        </div>
-          
-          
+
           <input className="btn btn-success" type="submit" value="Login" />
         </form>
       </div>

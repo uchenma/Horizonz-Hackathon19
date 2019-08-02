@@ -76,7 +76,7 @@ const ScoreSchema = new Schema({
 
 const goalSchema = new Schema({
   user: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.ObjectId,
     ref: "User"
   },
   content: {
@@ -85,7 +85,7 @@ const goalSchema = new Schema({
   },
   createdAt: {
     type: Date,
-    required: true
+    required: false
   },
   rec: [
     {
@@ -121,9 +121,9 @@ const Rec = mongoose.model("Rec", RecSchema);
 const Score = mongoose.model("Score", ScoreSchema);
 
 module.exports = {
-    Goal,
-    Message,
-    User,
-    Rec,
-    Score
-}
+  Goal,
+  Message,
+  User,
+  Rec,
+  Score
+};
