@@ -11,6 +11,10 @@ function Message({ userId, recId }) {
 
 
     useEffect(() => {
+        socket.on('RECEIVE_MESSAGE', function (data) {
+            setMessages(messages => messages.concat(data));
+        });
+
         const link = `http://localhost:4000/messages/${userId}/${recId}`;
         fetch(link, {
             method: "GET",
@@ -40,10 +44,6 @@ function Message({ userId, recId }) {
         });
         setMessage("");
     }
-
-    socket.on('RECEIVE_MESSAGE', function (data) {
-        setMessages(messages => messages.concat(data));
-    });
 
 
 
