@@ -4,6 +4,7 @@ const { User } = require("../models");
 
 module.exports = function(passport, hash) {
   router.post("/signup", (req, res) => {
+    console.log(req.body)
     const newUser = new User({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -14,8 +15,8 @@ module.exports = function(passport, hash) {
       gender: req.body.gender,
       bio: req.body.bio,
       goals: req.body.goals,
-      messages: req.body.messages
     });
+    console.log(newUser)
     newUser.save(function(err, result) {
       if (err) {
         res.json({ success: false, error: "Unable to save the user" });
@@ -28,7 +29,7 @@ module.exports = function(passport, hash) {
   router.post("/login", passport.authenticate("local"), function(req, res) {
     res.json({
       success: true,
-      message: "user is authenticated and logged in"
+      error: ""
     });
   });
 
@@ -37,7 +38,7 @@ module.exports = function(passport, hash) {
     req.logout();
     res.json({
       success: true,
-      message: "user is logged out"
+      error: ""
     });
   });
 
