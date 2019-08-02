@@ -11,9 +11,9 @@ function Dashboard(){
                 OUR NAME
             </div>
             <div className="dashboardBody">
-            {/* <Profile />
-            <Timeline /> */}
-            <Messages id = 'saaa'/>
+            <Profile />
+            <Timeline />
+            {/* <Messages id = 'saaa'/> */}
             </div>
            
         </div>

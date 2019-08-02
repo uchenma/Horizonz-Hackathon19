@@ -53,7 +53,7 @@ function Profile() {
     <div className="profile">
       {profile && 
       <div> 
-      <h1>Your Profile!</h1>
+      <h2 style={{textAlign:"center"}}>Your Profile!</h2>
       <img src={profile.profilePic} />
       <h3>
         Name: {profile.firstName} {profile.lastName}
