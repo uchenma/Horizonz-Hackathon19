@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter, Route, Link, Redirect } from "react-router-dom";
 import NewRec from "./NewRec";
+import Messages from "./Messages"; 
 
 function Timeline() {
   const [goals, setGoals] = useState([]);
   const [newGoal, setNewGoal] = useState("");
-  const [recs, setRecs] = useState([]);
+  const [openMessage, setOpenMessage] = useState(false);
+  const [recId, setRecId] = useState("");
+  const [userId, setUserId] = useState("");
 
+
+  
   useEffect(() => {
     fetch("http://localhost:4000/timeline", {
       method: "GET",
@@ -49,6 +55,10 @@ function Timeline() {
       })
       .catch(err => console.log(err));
   }
+
+if(openMessage){
+ return <Messages userId={userId} recId={recId}/> 
+} else{
 
   return (
     <div className="timeline">
@@ -102,7 +112,11 @@ function Timeline() {
                       <button
                         onClick={e => {
                           e.preventDefault();
-                          return <p>placeholder</p>;
+                          // return <Messages userId={goal.user._id} recId={rec.user}/>;
+                          console.log('i clicked');
+                          setOpenMessage(true);
+                          setUserId(goal.user._id); 
+                          setRecId(rec.user); 
                         }}
                       >
                         {" "}
@@ -119,6 +133,8 @@ function Timeline() {
       </div>
     </div>
   );
+}
+  
 }
 
 export default Timeline;

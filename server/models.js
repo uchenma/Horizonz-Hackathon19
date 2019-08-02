@@ -92,12 +92,12 @@ const goalSchema = new Schema({
 
 const messageSchema = new Schema({
   to: {
-    type: String
-    // ref: "User"
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
   },
   from: {
-    type: String
-    // ref: "User"
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
   },
   sentAt: {
     type: Date,
