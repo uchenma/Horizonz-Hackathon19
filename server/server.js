@@ -29,7 +29,10 @@ app.get("/", (req, res) => {
 });
 
 // static
+app.use(cors())
 app.use(express.static(path.join(__dirname, "build")));
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // Passport stuff
 
@@ -55,6 +58,7 @@ function hashPassword(password){
 passport.use(new LocalStrategy( function (email, password, done){
   const hashedPassword = hashPassword(password);
   User.findOne({email: email}, function (err, user){
+    console.log(user)
       if (err){
           console.log("Incorrect Email")
           done(err)
@@ -83,7 +87,7 @@ passport.deserializeUser( function (id, done){
   })
 })
 
-app.use('/', auth(passport));
+app.use('/', auth(passport, hashPassword));
 app.use('/', routes);
 
 // catch 404 and forward to error handler
@@ -100,7 +104,7 @@ app.use(function(req, res, next) {
 if (app.get("env") === "development") {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render("error", {
+    res.json({
       message: err.message,
       error: err
     });

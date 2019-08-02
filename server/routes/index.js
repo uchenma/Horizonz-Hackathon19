@@ -1,12 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var models = require('./models');
-var User = models.User;
-var Goal = models.Goal; 
-var Message = models.Message; 
-var Rec = models.Rec;
-var Score = models.Score; 
-var mongoose = require('mongoose');
+const express = require('express');
+const router = express.Router();
+const {User, Goal, Message, Rec, Score} = require('../models');
+const mongoose = require('mongoose');
 
 
 router.use(function(req, res, next){

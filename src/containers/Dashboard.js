@@ -1,10 +1,14 @@
 import React from "react";
+import Profile from "../components/Profile"
+// import Timeline from "../components/Timeline"
+// import Messages from "../components/Messages"
 
 function Dashboard(){
 
     return(
         <div>
-            <h1> This will be a dashboard someday! </h1>
+            <Profile />
+            {/* <Timeline />*/}
         </div>
     )
 }
